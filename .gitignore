@@ -1,0 +1,4 @@
+__pycache__
+migrations
+.cache
+requirements.txt

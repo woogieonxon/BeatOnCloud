@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+
+<header class="d-flex justify-content-between align-items-center">
+  <div class="logo">
+    <a href="{{ url_for('main.index') }}">
+      <img src="../static/assets/imgs/logo/logo.ico" alt="웹서비스 로고">
+    </a>  
+  </div>
+  
+  <form action="{{ url_for('search.search_results') }}" method="GET">   
+    <input type="text" name="query" placeholder="검색어를 입력하세요">
+  </form>
+  
+  <div class="space"></div>
+
+  {% if g.user %}
+  <div class="dropdown">
+    <button class="btn btn-secondary btn-circle dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+      </svg>
+    </button>    
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><a class="dropdown-item" href="{{ url_for('auth.logout')}}">로그아웃</a></li>
+    </ul>
+  </div>
+  {% else %}
+  <div class="btn-group">
+    <a href="{{ url_for('auth.login')}}" class="btn btn-secondary" aria-current="page">로그인</a>
+    {% endif %}
+  </div>
+</header>
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-8"> 
+      <div class="grid text-center">
+        <h2 class="h4 mb-4 fw-normal">검색 결과</h2>
+
+        {% if artists %}
+          {% for artist in artists %}
+            <div class="card" style="--card-color: #727777;">
+              <img src="{{ artist.images[0].url }}" alt="{{ artist.name }}" data-testid="card-image" class="w-25 p-3">
+              <div class="info">
+                <a class="Nqa6Cw3RkDMV8QnYreTr" title="{{ artist.name }}">
+                  <div class="Type__TypeElement-sc-goli3j-0 gIkgYW nk6UgB4GUYNoAcPtAQaG" data-encore-id="type">
+                    {% if artist.name_kor %}{{ artist.name_kor }}{% else %}{{ artist.name }}{% endif %}
+                  </div>
+                </a>
+                <div class="Type__TypeElement-sc-goli3j-0 bDHxRN Za_uNH8nTZ0qCuIqbPLZ k2ndSrHzhAsXBcLqRKYx" data-encore-id="type">
+                  <span>{% if artist.type == "artist" %}아티스트{% else %}{{ artist.type }}{% endif %}</span>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        {% else %}
+          <p>결과가 없습니다.</p>
+        {% endif %}
+      </div> <!-- Move this </div> inside the grid text-center div -->
+    </div>
+    <div class="col-6 col-md-4">
+      <div class="grid text-center">
+        <h2 class="h4 mb-4 fw-normal">Top Tracks</h2>
+
+        {% if artist_info.top_tracks %}
+          {% for track in artist_info.top_tracks[:1] %}
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="card-title">{{ track.name }}</h5>
+                  {% if track.preview_url %}
+                    <audio controls>
+                      <source src="{{ track.preview_url }}" type="audio/mpeg">
+                      Your browser does not support the audio tag.
+                    </audio>
+                  {% else %}
+                    <p>미리보가 없습니다.</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        {% else %}
+          <p>노래가 없습니다.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+</div>
+
+
+
+<!--
+    <div class="col-md-8">
+      <div class="grid text-center">
+        <h2 class="h4 mb-4 fw-normal">Top Tracks</h2>
+
+        {% if artist_info.top_tracks %}
+          {% for track in artist_info.top_tracks[:1] %}
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="card-title">{{ track.name }}</h5>
+                  {% if track.preview_url %}
+                    <audio controls>
+                      <source src="{{ track.preview_url }}" type="audio/mpeg">
+                      Your browser does not support the audio tag.
+                    </audio>
+                  {% else %}
+                    <p>미리보가 없습니다.</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        {% else %}
+          <p>노래가 없습니다.</p>
+        {% endif %}
+      </div>
+    </div>
+
+
+<h2>아티스트</h2>
+{% if artists %}
+    <div class="row row-cols-8">
+    {% for artist in artists[:8] %}
+      <div class="card" style="--card-color: #727777;">
+        <img src="{{ artist.images[0].url }}" alt="{{ artist.name }}" data-testid="card-image">
+        <div class="info">
+          <a class="Nqa6Cw3RkDMV8QnYreTr" title="{{ artist.name }}">
+            <div class="Type__TypeElement-sc-goli3j-0 gIkgYW nk6UgB4GUYNoAcPtAQaG" data-encore-id="type">
+              {% if artist.name_kor %}{{ artist.name_kor }}{% else %}{{ artist.name }}{% endif %}
+            </div>
+          </a>
+          <div class="Type__TypeElement-sc-goli3j-0 bDHxRN Za_uNH8nTZ0qCuIqbPLZ k2ndSrHzhAsXBcLqRKYx" data-encore-id="type">
+            <span>{% if artist.type == "artist" %}아티스트{% else %}{{ artist.type }}{% endif %}</span>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+{% else %}
+  <p>결과가 없습니다.</p>
+{% endif %}
+
+<h2>앨범</h2>
+
+  {% if artist_albums %}
+      <div class="row row-cols-8">    
+          {% for album in artist_albums[:8] %}
+              <div class="card">
+                  <img src="{{ album.images[0].url }}" alt="{{ album.name }}" class="card-img-top">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ album.name }}</h5>
+                      <p class="card-text">{{ album.release_date }}</p>
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+  {% else %}
+      <p>앨범이 없습니다.</p>
+  {% endif %}
+
+
+<h2 class="h4 mb-4 fw-normal">Top Tracks</h2>
+
+  {% if artist_info.top_tracks %}
+      <div class="row row-cols-8">
+          {% for track in artist_info.top_tracks[:8] %}
+              <div class="card">
+                <div class="card-body">
+                      <h5 class="card-title">{{ track.name }}</h5>
+                      {% if track.preview_url %}
+                          <audio controls>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                              <path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z"/>
+                            </svg>
+                              <source src="{{ track.preview_url }}" type="audio/mpeg">
+                              Your browser does not support the audio tag.
+                          </audio>
+                      {% else %}
+                          <p>미리보가 업습니다.</p>
+                      {% endif %}
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+  {% else %}
+      <p>노래가 없습니다.</p>
+  {% endif %}
+
+  <h1>Spotify Web Playback SDK Quick Start</h1>
+    <button id="togglePlay">Toggle Play</button>
+
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = 'BQBbxMiOfwgyNx6tg2mPv70Vp2WJ1PZSCMut9eCJhXOhId-4J4dAw8kUL4zLVODkIil8k_fvqRt9RGgmZez-4_LLbBjUZqYxoZZZH_rNSprkBZQj-JmiIV80hLkOHrCvyzranbv782QQuXDPi8dReSBYatiax4z_MvarsL7mBQJbkbMTk--ZSv1tDjsZLAaszhZbjIp7ezDCG-axMF7DhiEI';
+            const player = new Spotify.Player({
+                name: 'Web Playback SDK Quick Start Player',
+                getOAuthToken: cb => { cb(token); },
+                volume: 0.5
+            });
+
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Ready with Device ID', device_id);
+            });
+
+            // Not Ready
+            player.addListener('not_ready', ({ device_id }) => {
+                console.log('Device ID has gone offline', device_id);
+            });
+
+            player.addListener('initialization_error', ({ message }) => {
+                console.error(message);
+            });
+
+            player.addListener('authentication_error', ({ message }) => {
+                console.error(message);
+            });
+
+            player.addListener('account_error', ({ message }) => {
+                console.error(message);
+            });
+
+            document.getElementById('togglePlay').onclick = function() {
+              player.togglePlay();
+            };
+
+            player.connect();
+        }
+    </script>    
+-->
+{% endblock %}
+
+
+<div class="container text-center">
+  <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+  <div class="row">
+    <div class="col-md-8">.col-md-8</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  </div>
+
+  <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+  <div class="row">
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  </div>
+</div>

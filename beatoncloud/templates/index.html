@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
+
+<div id="background-img">
+  <img src="../static/assets/imgs/background/main_background.webp">
+</div>
+
+<header class="d-flex align-items-center">
+  <div class="logo">
+    <img src="../static/assets/imgs/logo/logo.ico" alt="웹서비스 로고">
+  </div>
+  {% if g.user %}
+  <div class="dropdown">
+    <button class="btn btn-secondary btn-circle dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+      </svg>
+    </button>    
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{{ url_for('auth.logout')}}">로그아웃</a></li>
+    </ul>
+  </div>
+  {% else %}
+  <div class="btn-group">
+    <a href="{{ url_for('auth.login')}}" class="btn btn-secondary" aria-current="page">로그인</a>
+    {% endif %}
+  </div>
+</header>
+
+<form action="{{ url_for('search.search_results') }}" method="GET">   
+  <input type="text" name="query" placeholder="검색어를 입력하세요">
+</form>
+
+{% endblock %}

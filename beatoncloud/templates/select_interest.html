@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='interest.css') }}">
+
+<div id="background-img">
+  <img src="../static/assets/imgs/background/login_background.webp">
+</div>
+
+<main class="form-signin w-100 m-auto">
+  <form method="post">
+    {{ form.csrf_token }}
+    {% include "form_errors.html" %}
+    <h1 class="h3 mb-3 fw-normal">관심사 선택</h1>
+
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/classic.webp" class="card-img-classic" alt="classic">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">클래식</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="classic" name="classic" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/jazz.webp" class="card-img-classic" alt="jazz">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">재즈</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="jazz" name="jazz" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/pop.webp" class="card-img-classic" alt="pop">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">팝</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pop" name="pop" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/ballade.webp" class="card-img-classic" alt="ballade">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">발라드</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="ballade" name="ballade" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/hiphop.webp" class="card-img-classic" alt="hiphop">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">힙합</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="hiphop" name="hiphop" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/reggae.webp" class="card-img-classic" alt="reggae">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">레게</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="reggae" name="reggae" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/trot.webp" class="card-img-classic" alt="trot">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">트로트</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="trot" name="trot" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/electronic.webp" class="card-img-classic" alt="electronic">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">일렉트로닉</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="electronic" name="electronic" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/rock.webp" class="card-img-classic" alt="rock">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">락</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rock" name="rock" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm align-items-center">
+                        <img src="../static/assets/imgs/card/rnb.webp" class="card-img-classic" alt="rnb">
+                        <span class="position-absolute top-0 start-0"><h2 class="h4 mb-4 fw-normal">R&B</h2></span>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rnb" name="rnb" onclick='is_checked()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary w-100 py-2" type="submit">완료</button>
+  </form>
+</main>
+
+{% endblock %}

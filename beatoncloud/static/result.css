@@ -1,0 +1,11 @@
+header {
+    padding: 40px;
+}
+
+input {
+    width: 400px;
+    border: 1px solid #bbb;
+    border-radius: 30px;
+    padding: 8px 12px;
+    font-size: 14px;
+}

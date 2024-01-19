@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}  
+
+<link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet">
+
+<div id="background-img">
+  <img src="../static/assets/imgs/background/login_background.webp">
+</div>
+
+<main class="form-signin w-100 m-auto">
+  <form method="post">
+    {{ form.csrf_token }}
+    {% include "form_errors.html" %}
+    <h1 class="h3 mb-3 fw-normal">회원가입</h1>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" name="email" id="email"
+             value="{{ form.email.data or '' }}">
+      <label for="email" id="email-label">이메일 주소</label>
+    </div>
+
+    <div class="form-floating">
+        <input type="password" class="form-control" name="password1" id="password1"
+               value="{{ form.password1.data or '' }}">
+        <label for="password1" id="password1-label">비밀번호</label>
+    </div>
+
+    <div class="form-floating">
+        <input type="password" class="form-control" name="password2" id="password2"
+               value="{{ form.password2.data or '' }}">
+        <label for="password2" id="password2-label">비밀번호 확인</label>
+    </div>
+
+    <button class="btn btn-primary w-100 py-2" type="submit">다음</button>
+    <hr role="presentation" class="separator">
+    <p class="login-signup-now">이미 계정이 있나요? <a class target="_self" href="{{ url_for('auth.login') }}">로그인하세요</a>.<p>
+  </form>
+</main>
+
+{% endblock %}

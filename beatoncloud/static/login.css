@@ -1,0 +1,63 @@
+.form-signin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  max-width: 350px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.form-signin input[type="email"],
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 10px;
+  /* 내용이 입력되면 플레이스홀더의 자리를 유지하기 위한 패딩 추가 */
+  position: relative;
+  /* 상대적 위치 설정 */
+  color: #fff;
+}
+
+.form-signin input[type="email"]::placeholder,
+.form-signin input[type="password"]::placeholder {
+  color: #fff;
+  position: absolute;
+  /* 절대적 위치 설정 */
+  top: 50%;
+  /* 중앙 정렬을 위해 50% 상단으로 이동 */
+  left: 10px;
+  /* 좌측 여백 설정 */
+  transform: translateY(-50%);
+  /* 수직으로 중앙 정렬 */
+  transition: transform 0.3s ease-out, font-size 0.3s ease-out;
+  /* 트랜지션에 font-size 추가 */
+  font-size: 16px;
+  /* 플레이스홀더의 기본 글자 크기 설정 */
+}
+
+.form-signin input[type="email"]:focus::placeholder,
+.form-signin input[type="password"]:focus::placeholder {
+  transform: translateY(-100%);
+  font-size: 12px;
+}
+
+hr.separator {
+  margin: 10% auto;
+  border: 0;
+  height: 0;
+  border-top: 1px solid #fff;
+}
+
+.login-signup-now {
+  text-align: center;
+  color: #fff;
+}
+
+.login-signup-now a {
+  color: #6ea8fe;
+  text-decoration: none;
+}
